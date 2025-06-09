@@ -4,22 +4,29 @@ import time
 from PIL import Image
 import io
 import os
+import base64
 
 CEREBRIUM_ENDPOINT = "0.0.0.0/infer"
 
 def send_image(image_path):
     assert os.path.exists(image_path), f"Image not found: {image_path}"
 
-    with open(image_path, "rb") as f:
-        image_bytes = f.read()
+    with open(image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
 
-    files = {
-        "file": (os.path.basename(image_path), image_bytes, "image/jpeg"),
+    payload = {
+        "image_base64": encoded_string
+    }
+
+    headers = {
+        'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiJwLWMxOTNjZGFlIiwibmFtZSI6IiIsImRlc2NyaXB0aW9uIjoiIiwiZXhwIjoyMDY1MDExMDA1fQ.lVn6tKCqGlU8z5mS9mDuwc9PCRvJcpE2cAVRjxMWi9RnD_pYsNT5J_UE6ooAtheVW9Qv7LTURHNFFdRZzaw2D1-mzf-YD1so6ucAHfea4bhNBiK_DlZiMZvcRSOonYvL34zofO-11UVEs3tFmekUOUftPHmqu5P1j50TcG1But7lLQJca-faEfOwnQEhinzhEQAxyB_EOZSqTYzexvKHx50l-5S7p5RR6nRrxeuK82pQ1A7_KJwnUnPbPGCEzPa3WA0td9_WEb-pa6D18jfA12lxlKMj8dcv_baA30Un_2JGgShexWgPItr6hfpXH5ybZgkP6-__yc6pbY_FApRvYw',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
     }
 
     start_time = time.time()
 
-    response = requests.post(CEREBRIUM_ENDPOINT, files=files)
+    response = requests.post(CEREBRIUM_ENDPOINT, headers=headers, json=payload)
 
     elapsed_time = time.time() - start_time
     print(f"[INFO] Response time: {elapsed_time:.4f} seconds")

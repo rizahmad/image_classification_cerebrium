@@ -26,11 +26,11 @@ python test.py --image <path-to-image>
 To test single image on Cerebrium endpoint
 
 ```bash
-python test_server.py --url <endpoint-url> --image <path-to-image>
+python test_server.py --url https://api.cortex.cerebrium.ai/v4/p-c193cdae/image-classification/infer --image <path-to-image>
 ```
 
 ### To run server-side test cases
 
 ```bash
-python test_server.py --url <endpoint-url> --run-tests
+python test_server.py --url https://api.cortex.cerebrium.ai/v4/p-c193cdae/image-classification/infer --run-tests
 ```
