@@ -54,7 +54,7 @@ def run_custom_tests():
 
     # Test 2: Latency test on known image
     print("\n[TEST 2] Latency test...")
-    test_image_path = "test_image.jpg"
+    test_image_path = "n01440764_tench.jpeg"
     if not os.path.exists(test_image_path):
         print(f"[WARNING] Preset test image not found: {test_image_path}")
     else:

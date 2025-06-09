@@ -8,7 +8,7 @@
 
 ```bash
 python -m venv ./venv
-source ./venv/bin/activate  # For Linux/Mac
+source ./venv/bin/activate
 ```
 ### Install dependencies
 ```bash
